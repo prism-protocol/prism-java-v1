@@ -11,8 +11,9 @@
 #
 # Happy Coding!
 
-service: prism # NOTE: update this with your service name
-
+service: serverless-java-prism-version-v1 # NOTE: update this with your service name
+plugins:
+  - serverless-plugin-aws-cn-principal
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
@@ -20,6 +21,10 @@ service: prism # NOTE: update this with your service name
 provider:
   name: aws
   runtime: java8
+  region: cn-north-1
+  endpointType: regional
+  apiKeys:
+    - myJavaKey
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -55,12 +60,24 @@ package:
   artifact: target/prism-api-dev.jar
 
 functions:
- prism-v1-getAlldevices:
+  prism-v1-getAlldevices:
     handler: com.serverless.GetAllDevices
     events:
       - http:
           path: /getdevices
           method: get
+  prism-v1-userprofile:
+    handler: com.serverless.InsertUsersHandler
+    events:
+      - http:
+          path: /users
+          method: post
+  prism-v1-updateprofile:
+    handler: com.serverless.UpdateUserHandler
+    events:
+      - http:
+          path: /users
+          method: put
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

@@ -20,16 +20,19 @@ public class GetAllDevices implements RequestHandler<Map<String, Object>, ApiGat
 		List<Devices> tx;
 		
 		  try {
+			 
 		      /*Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
 		      String accountId = pathParameters.get("account_id");
 		      LOG.info("Getting transactions for " + accountId);*/
 		      tx = DynamoDBAdapter.getInstance().getAllDevices();
 		    } catch (Exception e) {
 		      LOG.error(e, e);
-		      Response responseBody = new Response("Failure getting transactions", input);
-		      return ApiGatewayResponse.builder()
+		        DeviceModel rm = new DeviceModel();
+			    rm.setResponse(0);
+			    rm.setMessage("something went wrong");
+			   return ApiGatewayResponse.builder()
 		      .setStatusCode(500)
-		      .setObjectBody(responseBody)
+		      .setObjectBody(rm)
 		      .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & serverless"))
 		      .build();
 		   }
