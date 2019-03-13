@@ -1,8 +1,6 @@
 package com.serverless.db;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -13,10 +11,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.serverless.data.Devices;
+import com.serverless.data.UserNotifications;
 import com.serverless.data.Users;
 
 public class DynamoDBAdapter {
@@ -57,5 +53,10 @@ public class DynamoDBAdapter {
     	
         DynamoDBMapper mapper = new DynamoDBMapper(client);
         mapper.save(users);
+    }
+    
+    public List<UserNotifications> getNotifications() throws IOException {
+    	DynamoDBMapper mapper = new DynamoDBMapper(client);
+    	return mapper.scan(UserNotifications.class, new DynamoDBScanExpression());
     }
 }
