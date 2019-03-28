@@ -5,6 +5,7 @@ public class UserModel {
 	private int response;
 	private String message;
 	private String profileUrl;
+	private String userId;
 	public int getResponse() {
 		return response;
 	}
@@ -22,6 +23,12 @@ public class UserModel {
 	}
 	public void setProfileUrl(String profileUrl) {
 		this.profileUrl = profileUrl;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

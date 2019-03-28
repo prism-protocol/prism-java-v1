@@ -1,0 +1,61 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Transform" : [ "AWS::Serverless-2016-10-31" ],
+  "Description" : null,
+  "Resources" : { },
+  "package" : {
+    "artifact" : "target/prism-api-dev.jar"
+  },
+  "functions" : {
+    "prism-v1-getAlldevices" : {
+      "handler" : "com.serverless.GetAllDevices",
+      "events" : [ {
+        "http" : {
+          "path" : "/getdevices",
+          "method" : "get"
+        }
+      } ]
+    },
+    "prism-v1-userprofile" : {
+      "handler" : "com.serverless.InsertUsersHandler",
+      "events" : [ {
+        "http" : {
+          "path" : "/users",
+          "method" : "post"
+        }
+      } ]
+    },
+    "prism-v1-updateprofile" : {
+      "handler" : "com.serverless.UpdateUserHandler",
+      "events" : [ {
+        "http" : {
+          "path" : "/users",
+          "method" : "put"
+        }
+      } ]
+    },
+    "prism-v1-usernotifications" : {
+      "handler" : "com.serverless.UserNotificationHandler",
+      "events" : [ {
+        "http" : {
+          "path" : "/notifications",
+          "method" : "post"
+        }
+      } ]
+    }
+  },
+  "provider" : {
+    "name" : "aws",
+    "runtime" : "java8",
+    "region" : "cn-north-1",
+    "endpointType" : "regional",
+    "apiKeys" : [ "myJavaKey" ],
+    "iamRoleStatements" : [ {
+      "Effect" : "Allow",
+      "Action" : [ "dynamodb:*" ],
+      "Resource" : "*"
+    } ]
+  },
+  "service" : "serverless-java-prism-version-v1",
+  "plugins" : [ "serverless-plugin-aws-cn-principal" ]
+}

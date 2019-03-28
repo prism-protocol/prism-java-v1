@@ -2,29 +2,28 @@ package com.serverless.data;
 
 import java.util.Map;
 
-public class NotificationModel {
+public class WalletModel {
 	
-	private String message;
 	private int response;
+	private String message;
 	private Map<String, Object> data;
+	public int getResponse() {
+		return response;
+	}
+	public void setResponse(int response) {
+		this.response = response;
+	}
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public int getResponse() {
-		return response;
-	}
-	
 	public Map<String, Object> getData() {
 		return data;
 	}
 	public void setData(Map<String, Object> data) {
 		this.data = data;
 	}
-	public void setResponse(int response) {
-		this.response = response;
-	}
-	
+
 }

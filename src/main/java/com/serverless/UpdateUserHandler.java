@@ -37,7 +37,8 @@ public class UpdateUserHandler implements RequestHandler<Map<String, Object>, Ap
 	       url = new URL(dp);
 	      System.out.println("file path..."+FilenameUtils.getName(url.getPath()));
 	  	  InputStream fis = new ByteArrayInputStream(bI);
-   		  AmazonS3 s3 = new AmazonS3Client();
+   		  @SuppressWarnings("deprecation")
+		AmazonS3 s3 = new AmazonS3Client();
 	  			Region cnNorth1 = Region.getRegion(Regions.CN_NORTH_1);
 	  			s3.setRegion(cnNorth1);
 	  			ObjectMetadata metadata = new ObjectMetadata();
@@ -48,7 +49,6 @@ public class UpdateUserHandler implements RequestHandler<Map<String, Object>, Ap
 	  	  s3.putObject("prismusers", FilenameUtils.getName(url.getPath()), fis, metadata);
 	  	  s3.setObjectAcl("prismusers", FilenameUtils.getName(url.getPath()), CannedAccessControlList.PublicRead);
 	      String userid = body.get("userId").asText();
-	      String address = body.get("address").asText();
 	      String dob = body.get("dob").asText();
 	      String email = body.get("email").asText();
 	      String firstname = body.get("firstName").asText();
@@ -57,9 +57,22 @@ public class UpdateUserHandler implements RequestHandler<Map<String, Object>, Ap
 	      String lastname = body.get("lastName").asText();
 	      String phone = body.get("phone").asText();
 	      String weight = body.get("weight").asText();
+	      String dNumber = body.get("doorNumber").asText();
+	      String area = body.get("area").asText();
+	      String landmark = body.get("landmark").asText();
+	      String pincode = body.get("pinCode").asText();
+	      String district = body.get("district").asText();
+	      String state = body.get("state").asText();
+	      String country = body.get("country").asText();
 
 	      Users tx = new Users();
-	      tx.setAddress(address);
+	      tx.setArea(area);
+	      tx.setCountry(country);
+	      tx.setDistrict(district);
+	      tx.setDoorNumber(dNumber);
+	      tx.setLandmark(landmark);
+	      tx.setPinCode(pincode);
+	      tx.setState(state);
 	      tx.setDob(dob);
 	      tx.setDpUrl("https://s3.cn-north-1.amazonaws.com.cn/prismusers/"+FilenameUtils.getName(url.getPath()));
 	      tx.setEmail(email);

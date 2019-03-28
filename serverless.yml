@@ -83,8 +83,19 @@ functions:
     events:
       - http:
           path: /notifications
-          method: get
-
+          method: post
+  prism-v1-wallet:
+    handler: com.serverless.GetWalletInfo
+    events:
+      - http:
+          path: /getwallet
+          method: post
+  prism-v1-walletPoints:
+    handler: com.serverless.WalletTransaction
+    events:
+      - http:
+          path: /wallet
+          method: post
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
